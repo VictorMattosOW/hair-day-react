@@ -1,0 +1,7 @@
+.card_base {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  border-radius: 12px;
+  background: var(--gray-700, #232225);
+}

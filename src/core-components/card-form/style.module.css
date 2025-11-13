@@ -1,0 +1,26 @@
+.base {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.title > :not([hidden]) ~ :not([hidden]) {
+  margin-top: 0.25rem;
+}
+
+.title > h2 {
+  margin-bottom: 8px;
+}
+
+.form_base > :not([hidden]) ~ :not([hidden]) {
+  margin-top: 1rem;
+}
+
+.button_size {
+  width: 100%;
+}
+
+.card {
+  max-width: 350px;
+  padding: 72px;
+}

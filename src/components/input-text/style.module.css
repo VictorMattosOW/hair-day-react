@@ -1,0 +1,17 @@
+.base {
+  display: flex;
+  height: 48px;
+  padding-inline: 12px;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+
+  border-radius: 8px;
+  border: 2px solid var(--gray-500, #3e3c41);
+}
+
+.base:has(input:focus){
+  border-radius: 8px;
+  border: 2px solid var(--yellow-dark, #846f2e);
+}
+

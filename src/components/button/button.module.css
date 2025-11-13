@@ -1,0 +1,21 @@
+.base {
+  display: flex;
+  height: 56px;
+  justify-content: center;
+  align-items: center;
+  /* flex-shrink: 0; */
+  border-color: #0000;
+  border-radius: 8px;
+  background: var(--yellow);
+  border: transparent;
+}
+
+.base:hover {
+  border-radius: 8px;
+  border: 2px solid var(--yellow-light, #dbc170);
+  background: var(--yellow, #b8952e);
+}
+
+.base:disabled {
+    pointer-events: none;
+}

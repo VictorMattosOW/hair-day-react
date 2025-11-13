@@ -1,0 +1,73 @@
+:root {
+  --gray-100: #f5f4f5;
+  --gray-200: #b2afb6;
+  --gray-300: #98959d;
+  --gray-400: #7a767f;
+  --gray-500: #3e3c41;
+  --gray-600: #2e2c30;
+  --gray-700: #232225;
+  --gray-800: #19181b;
+  --gray-900: #050505;
+
+  --yellow-light: #dbc170;
+  --yellow: #b8952e;
+  --yellow-dark: #846f2e;
+
+  --space: 0.25rem;
+  --border-color: var(--gray-600, #2e2c30);
+  --radius: 8px;
+
+  font-family: "Catamaran", sans-serif;
+
+  input {
+    font-size: 1rem; /* text-base */
+    line-height: 1.5rem; /* /6 => 1.5rem (24px) */
+    font-weight: 400; /* font-normal */
+    width: 100%; /* w-full */
+    outline: none; /* outline-none */
+    color: var(--gray-200);
+    border: none; /* text-gray-200 */
+  }
+
+  .title-lg {
+    font-size: 1.5rem;
+    line-height: 24px;
+    font-weight: bold;
+    color: var(--gray-100);
+  }
+
+  .title-md {
+    font-size: 1rem;
+    line-height: 24px;
+    font-weight: bold;
+    color: var(--gray-100);
+  }
+
+  .title-sm {
+    font-size: 0.875rem;
+    line-height: 20px;
+    font-weight: bold;
+    color: var(--gray-100);
+  }
+
+  .md {
+    font-size: 1rem;
+    line-height: 24px;
+    color: var(--gray-300);
+  }
+
+  .sm {
+    font-size: 0.875rem;
+    line-height: 20px;
+    color: var(--gray-300);
+  }
+}
+
+body {
+  background-color: var(--gray-800);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
