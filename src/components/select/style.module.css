@@ -1,16 +1,12 @@
 .base {
   display: flex;
-  /* width: 78.5px;
-  height: 40px; */
-  padding-block: calc(0.25rem * 2);
-  padding-inline: calc(0.25rem * 5);
+  padding: calc(0.25rem * 2) calc(0.25rem * 5);
   justify-content: center;
   align-items: center;
-  border-radius: 8px;
+  border-radius: 0.5rem;
   border: 1px solid var(--gray-500, #3e3c41);
   background: var(--gray-600, #2e2c30);
   color: var(--gray-200, #b2afb6);
-  text-align: center;
   cursor: pointer;
 }
 
@@ -19,19 +15,18 @@
   background: var(--gray-500, #3e3c41);
 }
 
-.base:disabled {
-  border-radius: 8px;
-  border: 1px solid var(--gray-600, #2e2c30);
+.disabled {
+  border: 1px solid var(--gray-600);
+  background-color: #0000;
+  color: #3e3c41;
+  cursor: not-allowed;
+  pointer-events: none;
 }
 
 .base:has(input[type="radio"]:checked) {
   border: 1px solid var(--yellow, #b8952e);
   background: var(--gray-600, #2e2c30);
   color: var(--yellow, #b8952e);
-}
-
-input {
-  background-color: transparent;
 }
 
 .hidden {

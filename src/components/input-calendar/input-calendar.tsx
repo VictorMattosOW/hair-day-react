@@ -7,16 +7,20 @@ import { useRef } from "react";
 interface InputCalendarProps
   extends Omit<React.ComponentProps<"input">, "size" | "disabled"> {}
 
-export default function InputCalendar({ className }: InputCalendarProps) {
+export default function InputCalendar({
+  className,
+  onChange,
+  ...rest
+}: InputCalendarProps) {
   const classes = `${style.base} ${className ? className : ""}`;
   const inputRef = useRef<HTMLInputElement>(null);
   const handleClick = () => {
     inputRef.current?.showPicker?.();
   };
   return (
-    <button className={classes} onClick={handleClick}>
+    <button type="button" className={classes} onClick={handleClick}>
       <Icon svg={CalendarIcon} />
-      <input type="date" ref={inputRef} />
+      <input type="date" ref={inputRef} onChange={onChange} {...rest} />
       <Icon svg={CaretDownIcon} />
     </button>
   );
