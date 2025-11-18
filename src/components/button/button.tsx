@@ -6,7 +6,7 @@ interface ButtonProps extends React.ComponentProps<"button"> {}
 
 export default function Button({ children, className, ...props }: ButtonProps) {
     return (
-        <button className={`${styles.base} ${className}`} >
+        <button className={`${styles.base} ${className}`} {...props}>
             <Text variant="title-md">{children}</Text>
         </button>
     )

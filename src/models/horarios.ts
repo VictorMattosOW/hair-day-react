@@ -14,6 +14,7 @@ interface Horario {
 export interface Agendamento {
   horario: string;
   cliente: string;
+  id?: string;
 }
 
 export interface Agenda {

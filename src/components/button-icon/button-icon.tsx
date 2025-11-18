@@ -6,9 +6,9 @@ interface ButtonIconProps extends Omit<React.ComponentProps<"button">, "size" | 
     icon: React.ComponentProps<typeof Icon>["svg"]
 }
 
-export default function ButtonIcon({icon} : ButtonIconProps) {
+export default function ButtonIcon({icon, ...props} : ButtonIconProps) {
     return (
-        <button className={style.button}>
+        <button className={style.button} {...props}>
             <Icon svg={icon} />
         </button>
     )

@@ -4,6 +4,7 @@ import Text from "../../components/text";
 import TrashIcon from "../../assets/Trash.svg?react";
 import style from "./style.module.css";
 import type { Agenda } from "../../models/horarios";
+import { useAppointments } from "../../context/AppointmentContext";
 
 interface CardAgendaProps {
   agenda?: Agenda;
@@ -27,14 +28,26 @@ export default function CardAgenda({ agenda }: CardAgendaProps) {
 }
 
 function Card({ agenda }: CardAgendaProps) {
-  if (agenda?.agendamento.length !== 0) {
+  const { deleteAppointment } = useAppointments();
+
+  function handleDelete(id: string | undefined) {
+    if (id) {
+      deleteAppointment(id);
+    }
+  }
+
+  if (agenda?.agendamento && agenda.agendamento.length > 0) {
     return (
       <div className={style.card_bottom}>
-        <div className={style.aling}>
-          <Text variant="title-md">{agenda?.agendamento[0].horario}</Text>
-          <Text variant="md">{agenda?.agendamento[0].cliente}</Text>
-        </div>
-        <ButtonIcon icon={TrashIcon}></ButtonIcon>
+        {agenda.agendamento.map((apt) => (
+          <div key={apt.id || apt.horario} className={style.aling}>
+            <div className={style.aling}>
+              <Text variant="title-md">{apt.horario}</Text>
+              <Text variant="md">{apt.cliente}</Text>
+            </div>
+            <ButtonIcon icon={TrashIcon} onClick={() => handleDelete(apt.id)} />
+          </div>
+        ))}
       </div>
     );
   } else {

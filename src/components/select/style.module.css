@@ -29,6 +29,18 @@
   color: var(--yellow, #b8952e);
 }
 
+.selected {
+  border: 1px solid var(--yellow, #b8952e);
+  background: var(--gray-600, #2e2c30);
+  color: var(--yellow, #b8952e);
+}
+
+.selected:hover {
+  border: 1px solid var(--yellow-light, #dbc170);
+  background: var(--gray-600, #2e2c30);
+  color: var(--yellow-light, #dbc170);
+}
+
 .hidden {
   display: none;
 }
