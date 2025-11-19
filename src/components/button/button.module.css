@@ -3,7 +3,6 @@
   height: 56px;
   justify-content: center;
   align-items: center;
-  /* flex-shrink: 0; */
   border-color: #0000;
   border-radius: 8px;
   background: var(--yellow);
@@ -17,5 +16,12 @@
 }
 
 .base:disabled {
-    pointer-events: none;
+  pointer-events: none;
+  opacity: 0.3;
+  background-color: var(-yellow);
+  border-color: #0000;
+}
+
+.text {
+  color: var(--gray-900) !important;
 }

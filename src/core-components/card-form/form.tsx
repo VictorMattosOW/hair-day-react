@@ -7,35 +7,84 @@ import DisplayHorarios from "../display-horarios/display-horarios";
 import style from "./style.module.css";
 import UserIcon from "../../assets/UserSquare.svg?react";
 import Button from "../../components/button/button";
-import { useState } from "react";
-
-const manha: Horarios = {
-  title: "Manhã",
-  horarios: [
-    { horario: "09:00", isAgendado: false },
-    { horario: "10:00", isAgendado: false },
-    { horario: "11:00", isAgendado: true },
-    { horario: "12:00", isAgendado: false },
-  ],
-};
-
-// const tarde: Horarios = {
-//   title: "Tarde",
-//   horarios: ["13:00", "14:00", "15:00", "16:00", "17:00", "18:00"],
-// };
-// const noite: Horarios = {
-//   title: "Noite",
-//   horarios: ["19:00", "20:00", "21:00"],
-// };
+import React, { useState } from "react";
+import useAppointments from "../../hooks/use-agendamento";
+import {
+  HORARIOS_MANHA,
+  HORARIOS_NOITE,
+  HORARIOS_TARDE,
+} from "../../utils/horarios";
 
 export default function Form() {
-  const [isDateEmpety, setIsDateEmpety] = useState(true);
+  const [selectedDate, setSelectedDate] = useState<string>("");
+  const [selectedHorario, setSelectedHorario] = useState<string>("");
+  const [client, setCliente] = useState<string>("");
+  const { addAppointment, isTimeSlotBooked } = useAppointments();
+
+  const isDateEmpty = !selectedDate;
+  console.log(isDateEmpty);
+
+  const isButtonDisabled = !selectedDate || !selectedHorario || !client.trim();
 
   function handleCalendar(e: React.ChangeEvent<HTMLInputElement>) {
-    if (e.target.value != null) {
-      setIsDateEmpety(false);
-    }
+    const date = e.target.value;
+    setSelectedDate(date);
+    setSelectedHorario("");
   }
+
+  function handleHorarioSelect(horario: string) {
+    setSelectedHorario(horario);
+  }
+
+  function handleClienteChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setCliente(e.target.value);
+  }
+
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    if (!selectedDate || !selectedHorario || !client.trim()) return;
+
+    addAppointment({
+      cliente: client,
+      date: selectedDate,
+      horario: selectedHorario,
+    });
+
+    setCliente("");
+    setSelectedDate("");
+    setSelectedHorario("");
+  }
+
+  const manha: Horarios = {
+    title: "Manhã",
+    horarios: HORARIOS_MANHA.map((horario) => ({
+      horario,
+      isAgendado: selectedDate
+        ? isTimeSlotBooked(selectedDate, horario)
+        : false,
+    })),
+  };
+
+  const tarde: Horarios = {
+    title: "Manhã",
+    horarios: HORARIOS_TARDE.map((horario) => ({
+      horario,
+      isAgendado: selectedDate
+        ? isTimeSlotBooked(selectedDate, horario)
+        : false,
+    })),
+  };
+
+  const noite: Horarios = {
+    title: "Manhã",
+    horarios: HORARIOS_NOITE.map((horario) => ({
+      horario,
+      isAgendado: selectedDate
+        ? isTimeSlotBooked(selectedDate, horario)
+        : false,
+    })),
+  };
 
   return (
     <Card as="aside" className={style.card}>
@@ -48,30 +97,54 @@ export default function Form() {
           agendamento
         </Text>
       </div>
-      <form className={style.form_base}>
+      <form onSubmit={handleSubmit} className={style.form_base}>
         <div className={style.base}>
           <Text as="span" variant="title-md">
             Data
           </Text>
-          <InputCalendar onChange={handleCalendar} />
+          <InputCalendar value={selectedDate} onChange={handleCalendar} />
         </div>
         <div className={style.base}>
           <Text as="span" variant="title-md">
             Horários
           </Text>
           <div className={style.base}>
-            <DisplayHorarios dia={manha} disabled={isDateEmpety} />
-            {/* <DisplayHorarios dia={tarde} disabled={isDateEmpety} />
-            <DisplayHorarios dia={noite} disabled={isDateEmpety} /> */}
+            <DisplayHorarios
+              dia={manha}
+              disabled={isDateEmpty}
+              onHorarioSelect={handleHorarioSelect}
+            />
+            <DisplayHorarios
+              dia={tarde}
+              disabled={isDateEmpty}
+              selectedHorario={selectedHorario}
+              onHorarioSelect={handleHorarioSelect}
+            />
+            <DisplayHorarios
+              dia={noite}
+              disabled={isDateEmpty}
+              selectedHorario={selectedHorario}
+              onHorarioSelect={handleHorarioSelect}
+            />
           </div>
         </div>
         <div className={style.base}>
           <Text variant="title-md" as="span">
             Cliente
           </Text>
-          <InputText icon={UserIcon} placeholder="Helen Souza" />
+          <InputText
+            onChange={handleClienteChange}
+            icon={UserIcon}
+            placeholder="Helen Souza"
+          />
         </div>
-        <Button className={style.button_size}>AGENDAR</Button>
+        <Button
+          type="submit"
+          disabled={isButtonDisabled}
+          className={style.button_size}
+        >
+          AGENDAR
+        </Button>
       </form>
     </Card>
   );
