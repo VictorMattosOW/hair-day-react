@@ -38,6 +38,7 @@ export default function DisplayHorarios({
             <SelectTime
               disabled={isDisabled}
               key={`${dia.title}${x++}`}
+              name="horario"
               onClick={() => handleHorarioClick(h.horario, h.isAgendado)}
               data-selected={isSelected}
             >

@@ -1,5 +1,4 @@
 import type React from "react";
-import Text from "../text";
 import style from "./style.module.css";
 
 interface SeletcProps extends React.ComponentProps<"input"> {

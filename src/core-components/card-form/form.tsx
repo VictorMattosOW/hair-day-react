@@ -18,13 +18,13 @@ import {
 export default function Form() {
   const [selectedDate, setSelectedDate] = useState<string>("");
   const [selectedHorario, setSelectedHorario] = useState<string>("");
-  const [client, setCliente] = useState<string>("");
+  const [cliente, setCliente] = useState<string>("");
   const { addAppointment, isTimeSlotBooked } = useAppointments();
 
   const isDateEmpty = !selectedDate;
-  console.log(isDateEmpty);
+  console.log(isDateEmpty, selectedDate);
 
-  const isButtonDisabled = !selectedDate || !selectedHorario || !client.trim();
+  const isButtonDisabled = !selectedDate || !selectedHorario || !cliente.trim();
 
   function handleCalendar(e: React.ChangeEvent<HTMLInputElement>) {
     const date = e.target.value;
@@ -43,17 +43,19 @@ export default function Form() {
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    if (!selectedDate || !selectedHorario || !client.trim()) return;
+    if (!selectedDate || !selectedHorario || !cliente.trim()) {
+      return;
+    }
 
     addAppointment({
-      cliente: client,
+      cliente: cliente,
       date: selectedDate,
       horario: selectedHorario,
     });
 
-    setCliente("");
-    setSelectedDate("");
     setSelectedHorario("");
+    setSelectedDate("");
+    setCliente("");
   }
 
   const manha: Horarios = {
@@ -112,6 +114,7 @@ export default function Form() {
             <DisplayHorarios
               dia={manha}
               disabled={isDateEmpty}
+              selectedHorario={selectedHorario}
               onHorarioSelect={handleHorarioSelect}
             />
             <DisplayHorarios
@@ -135,6 +138,7 @@ export default function Form() {
           <InputText
             onChange={handleClienteChange}
             icon={UserIcon}
+            value={cliente}
             placeholder="Helen Souza"
           />
         </div>
