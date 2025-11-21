@@ -9,20 +9,13 @@ import CloudSunIcon from "../../assets/CloudSun.svg?react";
 import MoonStarsIcon from "../../assets/MoonStars.svg?react";
 import type { Appointment } from "../../models/appointments";
 import React, { useMemo, useState } from "react";
-import useAppointments from "../../hooks/use-agendamento";
 import {
+  getTodayDate,
   HORARIOS_MANHA,
   HORARIOS_NOITE,
   HORARIOS_TARDE,
 } from "../../utils/horarios";
-
-function getTodayDate(): string {
-  const today = new Date();
-  const year = today.getFullYear();
-  const month = String(today.getMonth() + 1).padStart(2, "0");
-  const day = String(today.getDate()).padStart(2, "0");
-  return `${year}-${month}-${day}`;
-}
+import { useAppointments } from "../../context/AppointmentContext";
 
 function filterAppointmentsByPeriod(
   appointments: Appointment[],
@@ -56,6 +49,8 @@ export default function DisplayAgenda() {
     () => filterAppointmentsByPeriod(appointments, HORARIOS_NOITE),
     [appointments]
   );
+
+  console.log(manhaAppointments);
 
   const manha: Agenda = {
     periodo: "Manhã",
@@ -106,6 +101,7 @@ export default function DisplayAgenda() {
             className={style.calendar}
             value={selectedDate}
             onChange={handleDateChange}
+            min={getTodayDate()}
           />
         </header>
         <CardAgenda agenda={manha} />

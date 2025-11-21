@@ -3,6 +3,7 @@ import style from "./style.module.css";
 import CalendarIcon from "../../assets/CalendarBlank.svg?react";
 import CaretDownIcon from "../../assets/CaretDown.svg?react";
 import { useRef } from "react";
+import { getTodayDate } from "../../utils/horarios";
 
 interface InputCalendarProps
   extends Omit<React.ComponentProps<"input">, "size" | "disabled"> {}
@@ -20,7 +21,13 @@ export default function InputCalendar({
   return (
     <button type="button" className={classes} onClick={handleClick}>
       <Icon svg={CalendarIcon} />
-      <input type="date" ref={inputRef} onChange={onChange} {...rest} />
+      <input
+        type="date"
+        min={getTodayDate()}
+        ref={inputRef}
+        onChange={onChange}
+        {...rest}
+      />
       <Icon svg={CaretDownIcon} />
     </button>
   );

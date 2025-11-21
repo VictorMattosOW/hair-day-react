@@ -8,7 +8,7 @@ interface SeletcProps extends React.ComponentProps<"input"> {
 export default function SelectTime({
   children,
   disabled,
-  onClick,
+  onChange,
   "data-selected": isSelected,
   ...rest
 }: SeletcProps) {
@@ -22,10 +22,10 @@ export default function SelectTime({
       <input
         type="radio"
         value={`${children}`}
-        disabled={disabled}
         className={`${style.hidden} ${style.base}`}
         {...rest}
-        onClick={onClick}
+        checked={!!isSelected}
+        onChange={onChange}
       />
     </label>
   );

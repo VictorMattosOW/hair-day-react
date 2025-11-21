@@ -8,12 +8,12 @@ import style from "./style.module.css";
 import UserIcon from "../../assets/UserSquare.svg?react";
 import Button from "../../components/button/button";
 import React, { useState } from "react";
-import useAppointments from "../../hooks/use-agendamento";
 import {
   HORARIOS_MANHA,
   HORARIOS_NOITE,
   HORARIOS_TARDE,
 } from "../../utils/horarios";
+import { useAppointments } from "../../context/AppointmentContext";
 
 export default function Form() {
   const [selectedDate, setSelectedDate] = useState<string>("");
@@ -22,7 +22,6 @@ export default function Form() {
   const { addAppointment, isTimeSlotBooked } = useAppointments();
 
   const isDateEmpty = !selectedDate;
-  console.log(isDateEmpty, selectedDate);
 
   const isButtonDisabled = !selectedDate || !selectedHorario || !cliente.trim();
 
@@ -48,13 +47,14 @@ export default function Form() {
     }
 
     addAppointment({
-      cliente: cliente,
       date: selectedDate,
       horario: selectedHorario,
+      cliente: cliente.trim(),
     });
 
-    setSelectedHorario("");
+    // Reset form
     setSelectedDate("");
+    setSelectedHorario("");
     setCliente("");
   }
 

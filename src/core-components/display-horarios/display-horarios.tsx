@@ -34,12 +34,13 @@ export default function DisplayHorarios({
         {dia.horarios.map((h) => {
           const isSelected = selectedHorario === h.horario;
           const isDisabled = disabled || h.isAgendado;
+
           return (
             <SelectTime
               disabled={isDisabled}
               key={`${dia.title}${x++}`}
               name="horario"
-              onClick={() => handleHorarioClick(h.horario, h.isAgendado)}
+              onChange={() => handleHorarioClick(h.horario, h.isAgendado)}
               data-selected={isSelected}
             >
               {h.horario}
